@@ -131,8 +131,8 @@ export default function Home() {
                   </svg>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-[#686963]">Find Your Perfect Recipe</h2>
-                  <p className="text-[#8AA29E]">Tell us what you have, and we&apos;ll work our magic</p>
+                  <h2 className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>Find Your Perfect Recipe</h2>
+                  <p style={{ color: 'var(--foreground)' }}>Tell us what you have, and we&apos;ll work our magic</p>
                 </div>
               </div>
             </div>
