@@ -1,8 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FAFAFA;
+  --foreground: #686963;
+  --primary: #DB5461;
+  --primary-dark: #C74552;
+  --primary-light: #E56974;
+  --secondary: #8AA29E;
+  --secondary-light: #9FB5B1;
+  --secondary-dark: #74908B;
+  --accent: #E3F2FD;
+  --accent-light: #F0F8FF;
+  --surface: #FFFFFF;
+  --border: #E8F4F8;
+  --text-muted: #8AA29E;
+  --shadow-sm: 0 1px 2px 0 rgba(104, 105, 99, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(104, 105, 99, 0.1), 0 2px 4px -1px rgba(104, 105, 99, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(104, 105, 99, 0.1), 0 4px 6px -2px rgba(104, 105, 99, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(104, 105, 99, 0.1), 0 10px 10px -5px rgba(104, 105, 99, 0.04);
 }
 
 @theme inline {
@@ -14,13 +29,405 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1A1A1A;
+    --foreground: #E8E8E8;
+    --surface: #2D2D2D;
+    --border: #404040;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Utility classes */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s infinite;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(90deg, transparent, rgba(254, 127, 45, 0.1), transparent);
+  background-size: 1000px 100%;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--accent);
+  border-radius: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 12px;
+  transition: background 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-dark);
+}
+
+/* Smooth transitions for all interactive elements */
+.transition-all-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Professional button styles */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(219, 84, 97, 0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: white;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+
+.btn-secondary:hover {
+  background: var(--secondary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Glass morphism effects */
+.glass {
+  background: rgba(250, 250, 250, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(227, 242, 253, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(104, 105, 99, 0.15);
+}
+
+.glass-dark {
+  background: rgba(104, 105, 99, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(138, 162, 158, 0.3);
+}
+
+/* Enhanced card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary);
+}
+
+/* Professional input styles */
+.input-focus {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid var(--border);
+  background: white;
+  color: black;
+}
+
+.input-focus:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(219, 84, 97, 0.1), var(--shadow-md);
+  outline: none;
+}
+
+.input-focus::placeholder {
+  color: var(--text-muted);
+}
+
+/* Smaller input variant for compact UIs (used on the main search form) */
+.input-sm {
+  padding: 0.5rem 0.75rem; /* smaller vertical padding */
+  font-size: 0.95rem;
+  line-height: 1.2;
+  border-radius: 0.75rem;
+}
+
+/* Only show strong outline when keyboard focusing for accessibility */
+.input-focus:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Micro interactions for clickable elements (buttons, cards) */
+.interactive {
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.22s;
+}
+.interactive:active {
+  transform: translateY(1px) scale(0.997);
+}
+.interactive:hover {
+  transform: translateY(-3px);
+}
+
+/* Modern typography */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Enhanced text visibility with new color scheme */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+h1 {
+  color: var(--secondary-dark);
+}
+
+p, span, div {
+  color: var(--foreground);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-accent {
+  color: var(--secondary-dark);
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg,
+    var(--surface) 25%,
+    var(--accent-light) 50%,
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Badge styles */
+.badge-primary {
+  background: var(--primary);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  letter-spacing: 0.025em;
+}
+
+.badge-secondary {
+  background: var(--secondary);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  letter-spacing: 0.025em;
+}
+
+/* Status indicators */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot.success {
+  background: var(--secondary);
+  box-shadow: 0 0 0 2px rgba(138, 162, 158, 0.2);
+}
+
+.status-dot.warning {
+  background: var(--primary);
+  box-shadow: 0 0 0 2px rgba(219, 84, 97, 0.2);
+}
+
+.status-dot.error {
+  background: var(--primary-dark);
+  box-shadow: 0 0 0 2px rgba(199, 69, 82, 0.2);
+}
+
+/* Improved accessibility with better contrast ratios */
+.text-contrast-high {
+  color: var(--secondary-dark);
+}
+
+.text-contrast-medium {
+  color: var(--foreground);
+}
+
+.bg-accessible {
+  background-color: var(--surface);
+  color: var(--foreground);
+}
+
+/* Focus styles for better accessibility */
+.focus-accessible:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Link styles with proper contrast */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Recipe card specific text visibility fixes */
+.recipe-card-title {
+  color: #111827 !important;
+  font-weight: 600 !important;
+}
+
+.recipe-card-text {
+  color: #374151 !important;
+}
+
+.recipe-card-meta {
+  color: #111827 !important;
+}
+
+/* Ensure all text in cards is visible */
+.bg-white * {
+  color: inherit;
+}
+
+.bg-white h1,
+.bg-white h2,
+.bg-white h3,
+.bg-white h4,
+.bg-white h5,
+.bg-white h6 {
+  color: #111827 !important;
+}
+
+.bg-white p,
+.bg-white span,
+.bg-white div {
+  color: #374151 !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --primary: #C74552;
+    --secondary: #74908B;
+    --foreground: #1A1A1A;
+    --border: #000000;
+  }
+
+  .glass {
+    background: rgba(250, 250, 250, 1);
+    border: 2px solid var(--border);
+  }
 }
